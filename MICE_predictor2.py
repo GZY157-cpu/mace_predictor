@@ -64,12 +64,12 @@ if st.button("预测"):
         predicted_class = model.predict(features)[0]
         predicted_proba = model.predict_proba(features)[0]
 
-        # # Display prediction results
+        # Display prediction results
         st.write(f"**预测类别:** {predicted_class}")
         st.write(f"**预测概率:** {predicted_proba}")
 
         # Generate advice with your requested wording
- if predicted_class == 1:
+        if predicted_class == 1:
             probability_mace = predicted_proba[1] * 100  # 发生事件的概率
             advice = (
                 "根据模型预测，您在1年内发生心血管不良事件 (MACE) 的风险较高。\n"
@@ -83,7 +83,7 @@ if st.button("预测"):
                 f"模型预测的发病概率为 {probability_mace:.1f}%。\n"
                 "建议您继续保持健康的生活方式，并遵医嘱定期复查。"
             )
-          
+        
         st.info(advice)  # 使用info框使建议更醒目
 
         # Calculate SHAP values and display force plot
@@ -126,6 +126,3 @@ if st.button("预测"):
     except Exception as e:
         st.error(f"预测过程中出错: {str(e)}")
         st.exception(e)  # 显示完整错误堆栈
-
-
-
