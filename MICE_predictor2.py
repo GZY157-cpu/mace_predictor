@@ -49,7 +49,7 @@ PTINR = st.number_input(
     "凝血相关指标 (PTINR):", 
     min_value=0.0, 
     max_value=6000.0, 
-    value=500.0,
+    value=1.0,
     format="%.0f",
     step=1.0
 )
@@ -69,21 +69,21 @@ if st.button("预测"):
         st.write(f"**预测概率:** {predicted_proba}")
 
         # Generate advice with your requested wording
-       if predicted_class == 1:
-    probability_mace = predicted_proba[1] * 100  # 发生事件的概率
-    advice = (
-        "根据模型预测，您在1年内发生心血管不良事件 (MACE) 的风险较高。\n"
-        f"模型预测的发病概率为 {probability_mace:.1f}%。\n"
-        "强烈建议您与主治医生详细讨论此结果，并采取积极的干预措施，如调整药物治疗、改变生活方式等。"
-    )
-else:
-    probability_mace = predicted_proba[1] * 100  # 仍然显示发生事件的概率
-    advice = (
-        "根据模型预测，您在1年内发生心血管不良事件 (MACE) 的风险较低。\n"
-        f"模型预测的发病概率为 {probability_mace:.1f}%。\n"
-        "建议您继续保持健康的生活方式，并遵医嘱定期复查。"
-    )
-        
+ if predicted_class == 1:
+            probability_mace = predicted_proba[1] * 100  # 发生事件的概率
+            advice = (
+                "根据模型预测，您在1年内发生心血管不良事件 (MACE) 的风险较高。\n"
+                f"模型预测的发病概率为 {probability_mace:.1f}%。\n"
+                "强烈建议您与主治医生详细讨论此结果，并采取积极的干预措施，如调整药物治疗、改变生活方式等。"
+            )
+        else:
+            probability_mace = predicted_proba[1] * 100  # 仍然显示发生事件的概率
+            advice = (
+                "根据模型预测，您在1年内发生心血管不良事件 (MACE) 的风险较低。\n"
+                f"模型预测的发病概率为 {probability_mace:.1f}%。\n"
+                "建议您继续保持健康的生活方式，并遵医嘱定期复查。"
+            )
+          
         st.info(advice)  # 使用info框使建议更醒目
 
         # Calculate SHAP values and display force plot
@@ -126,5 +126,6 @@ else:
     except Exception as e:
         st.error(f"预测过程中出错: {str(e)}")
         st.exception(e)  # 显示完整错误堆栈
+
 
 
