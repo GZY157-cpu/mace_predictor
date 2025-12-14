@@ -50,7 +50,7 @@ PTINR = st.number_input(
     min_value=0.0, 
     max_value=6000.0, 
     value=1.0,
-    format="%.0f",
+    format="%.1f",
     step=1.0
 )
 
@@ -126,3 +126,4 @@ if st.button("预测"):
     except Exception as e:
         st.error(f"预测过程中出错: {str(e)}")
         st.exception(e)  # 显示完整错误堆栈
+
